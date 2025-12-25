@@ -1,12 +1,26 @@
 const express = require("express");
 const app = express();
+const { sequelize, connectDB } = require("./db/Database");
 
-// Home Route
+//middleware
+app.use(express.json());
+
+
+//userRoutes and productRoutes
+app.use("/api/user", require('./routes/UserRouter'));
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Home Page" });
 });
 
-// Start Server
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+//start server
+const startServer = async () => {
+  const PORT = process.env.PORT || 3000;
+  await connectDB();
+  await sequelize.sync({ alter: true });
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+};
+
+startServer();
