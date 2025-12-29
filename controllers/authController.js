@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const sendEmail = require("../helper/sendEmail");
 const jwt = require("jsonwebtoken");
+const emailVerifytemplate = require("../utils/emailtamplate/emailVerifytemplate");
 
 const registerUser = async (req, res) => {
 
@@ -44,15 +45,12 @@ const registerUser = async (req, res) => {
 
     const verifyLink = `http://localhost:3000/api/user/verify-email?token=${verificationToken}`
 
+    const html = emailVerifytemplate(verifyLink);
+
     await sendEmail(
       email,
       "verify your email address",
-
-      `
-       <h2> verify ur self <h2>
-       <p>click to cerify the email</p>
-       <a href= ${verifyLink}>click here to verify </a>
-      `
+      html
     )
 
     return res.status(201).json({
