@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../db/Database");
-const { database } = require("pg/lib/defaults");
 
 const User = sequelize.define(
   "UserModel",
@@ -33,7 +32,8 @@ const User = sequelize.define(
     },
 
     isVerified: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
 
     verificationToken: {
@@ -44,14 +44,17 @@ const User = sequelize.define(
     TokenExpires: {
       type: DataTypes.DATE,
       allowNull: true
-    }
+    },
 
+    monthlyBudget: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    }
   },
   {
     tableName: "users",
     timestamps: true
   }
-)
-
+);
 
 module.exports = User;
