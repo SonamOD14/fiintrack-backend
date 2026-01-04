@@ -1,6 +1,11 @@
 const express = require("express");
 const app = express();
 const { sequelize, connectDB } = require("./db/Database");
+const cors = require("cors");
+app.use(cors({
+  origin: "http://localhost:5173", // Replace with your frontend URL
+  credentials: true,
+}));
 
 //middleware
 app.use(express.json());
@@ -21,7 +26,7 @@ const startServer = async () => {
   await connectDB();
 
   // Load models and relationships
-  require("./models");
+  require("./models/ExpenseModel");
 
   // Sync DB
   await sequelize.sync({ alter: true });
