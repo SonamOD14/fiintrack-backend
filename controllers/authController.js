@@ -10,8 +10,9 @@ const registerUser = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
 
-    if (!username || !email || !password || !role) {
+    if (!username || !email || !password) {
       return res.status(400).json({
+        success: false,
         message: "all field must fill"
       });
     }
@@ -20,6 +21,7 @@ const registerUser = async (req, res) => {
     const user = await User.findOne({ where: { email: email } })
     if (user) {
       return res.status(400).json({
+        success: false,
         message: "user already exists"
       })
     }
@@ -54,13 +56,15 @@ const registerUser = async (req, res) => {
     )
 
     return res.status(201).json({
+      success: true,
       message: `user register successfully`,
       user: newUser
     })
 
 
   } catch (error) {
-    return res.json({
+    return res.status(400).json({
+      success: false,
       message: "server error",
       error: error.message
     })
@@ -73,7 +77,7 @@ const userLogin = async (req, res) => {
 
     if (!email || !password) {
       return res.status(400).json({
-        message: "all filed are require"
+        message: "all filled are required"
       });
     }
 
@@ -85,7 +89,9 @@ const userLogin = async (req, res) => {
       });
     }
 
-    const isMatch = bcrypt.compare(password, user.password)
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    console.log(isMatch);
 
     if (isMatch) {
 

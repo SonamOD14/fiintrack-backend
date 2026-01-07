@@ -6,7 +6,7 @@ const upload = multer();
 
 const { registerUser, userLogin, forgetPassword } = require("../controllers/authController");
 
-router.post("/register",upload.none(), registerUser);
+router.post("/register", registerUser);
 router.get("/verify-email", verifyEmail);
 router.post("/login", userLogin);
 router.post("/forgetPassword", forgetPassword);
