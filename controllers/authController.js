@@ -177,4 +177,34 @@ const forgetPassword = async (req, res) => {
   }
 }
 
-module.exports = { registerUser, userLogin, forgetPassword };
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ["password", "verificationToken", "TokenExpires"] }
+    });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "no users found"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "users fetched successfully",
+      totalUsers: users.length,
+      users: users
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "server error",
+      error: error.message
+    });
+  }
+};
+
+
+module.exports = { registerUser, userLogin, forgetPassword, getAllUsers };
