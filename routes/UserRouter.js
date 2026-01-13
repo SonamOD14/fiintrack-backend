@@ -4,15 +4,15 @@ const resetPassword = require("../helper/resetPassword")
 const multer = require("multer");
 const upload = multer();
 
-const { registerUser, userLogin, forgetPassword } = require("../controllers/authController");
-const { getallUsersApi } = require("../../fiintrack-frontend/src/services/api");
+const { registerUser, userLogin, forgetPassword, getAllUsers } = require("../controllers/authController");
+// const { getallUsersApi } = require("../../fiintrack-frontend/src/services/api");
 
 router.post("/register", registerUser);
 router.get("/verify-email", verifyEmail);
 router.post("/login", userLogin);
 router.post("/forgetPassword", forgetPassword);
 router.post("/reset-password", resetPassword);
-router.get("/getalluser" ,getallUsersApi);
+router.get("/getalluser", getAllUsers);
 
 
 module.exports = router;
