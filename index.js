@@ -29,7 +29,7 @@ const startServer = async () => {
   require("./models/ExpenseModel");
 
   // Sync DB
-  await sequelize.sync({ alter: true });
+  await sequelize.sync({ force: true });
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
