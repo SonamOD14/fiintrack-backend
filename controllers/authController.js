@@ -49,6 +49,8 @@ const registerUser = async (req, res) => {
 
     const html = emailVerifytemplate(verifyLink);
 
+    console.log(email);
+
     await sendEmail(
       email,
       "verify your email address",
