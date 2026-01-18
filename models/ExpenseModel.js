@@ -10,11 +10,6 @@ const Expense = sequelize.define(
       primaryKey: true
     },
 
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-
     title: {
       type: DataTypes.STRING,
       allowNull: false
