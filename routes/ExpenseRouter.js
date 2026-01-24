@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const expenseController = require("../controllers/expenseController");
-const { verifyToken } = require("../middleware/authMiddleware"); // JWT auth
+const { verifyToken } = require("../middleware/authMiddleware");
 
-// All routes are protected
+// Protect all expense routes
 router.use(verifyToken);
 
-router.post("/", expenseController.addExpense);
-router.get("/", expenseController.getExpenses);
-router.put("/:id", expenseController.updateExpense);
-router.delete("/:id", expenseController.deleteExpense);
+// Dashboard
+router.get("/recent", expenseController.getRecentExpenses);
+
+// Expenses
+router.get("/", expenseController.getAllExpenses);
+router.post("/", expenseController.createExpense);
 
 module.exports = router;
