@@ -3,7 +3,7 @@ const app = express();
 const { sequelize, connectDB } = require("./db/Database");
 const cors = require("cors");
 app.use(cors({
-  origin: "http://localhost:5173", // Replace with your frontend URL
+  origin: "http://localhost:5174", // Replace with your frontend URL
   credentials: true,
 }));
 
@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Home Page" });
 });
 
-//start server
+//start serveri did
 const startServer = async () => {
   const PORT = process.env.PORT || 3000;
   await connectDB();
