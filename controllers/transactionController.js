@@ -4,19 +4,25 @@ const Transaction = require("../models/TransactionModel");
 exports.createTransaction = async (req, res) => {
   try {
     const {
-      title,
+      name : title,
       merchant,
       amount,
-      type,
+      transactionType : type,
       category,
-      transactionDate,
-      transactionTime,
-      description,
+      date : transactionDate,
+      time : transactionTime,
+      notes : description,
       status,
-      userId
     } = req.body;
 
-    if (!title || !amount || !type || !transactionDate || !userId) {
+    const userId = req.user.id
+
+    if(!userId) {
+      return console.log("userid not found")
+    }
+
+
+    if (!title || !amount || !type || !tran || !userId) {
       return res.status(400).json({
         success: false,
         message: "Missing required fields"

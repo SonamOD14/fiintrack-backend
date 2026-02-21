@@ -12,8 +12,8 @@ app.use(express.json());
 
 // userRoutes
 app.use("/api/user", require('./routes/UserRouter'));
-
-app.use("/api/expense", require("./routes/ExpenseRouter"));
+console.log("in index")
+app.use("/api/transaction", require("./routes/TransactionRouter"));
 
 // test route
 app.get("/", (req, res) => {
@@ -26,10 +26,10 @@ const startServer = async () => {
   await connectDB();
 
   // Load models and relationships
-  require("./models/ExpenseModel");
+  require("./models/TransactionModel");
 
   // Sync DB
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ alter: true });
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
